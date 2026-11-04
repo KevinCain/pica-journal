@@ -1,0 +1,8 @@
+{
+  "name": "pica",
+  "owner": { "name": "Kevin Cain" },
+  "description": "Claude Code plugins for pica, the writing app at picaimprint.app.",
+  "plugins": [
+    { "name": "pica-journal", "source": "./", "description": "Answer the pica journal from Claude Code." }
+  ]
+}

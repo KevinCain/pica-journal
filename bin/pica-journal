@@ -1,0 +1,3 @@
+#!/bin/sh
+# Claude's side of the pica journal. On the Bash tool's PATH while the plugin is enabled.
+exec node "$(dirname "$0")/../lib/journal.mjs" "$@"
