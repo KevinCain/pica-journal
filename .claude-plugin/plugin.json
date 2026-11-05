@@ -1,6 +1,6 @@
 {
   "name": "pica-journal",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Answer the pica journal: items a writer sends from pica with ☞ come to Claude, and Claude's replies appear under them.",
   "author": { "name": "Kevin Cain" },
   "homepage": "https://picaimprint.app/journal",

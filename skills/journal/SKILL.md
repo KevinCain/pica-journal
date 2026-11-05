@@ -7,24 +7,26 @@ allowed-tools: Bash(pica-journal:*)
 # The journal
 
 The writer keeps sheets in pica and sends items to you by marking them ☞. You answer in your own voice, as
-replies that pica sets in rubric under the item. All reading and writing goes through
+replies that pica sets in green under the item. All reading and writing goes through
 `pica-journal`, run in the journal folder — never read or write the folder's files any other way.
 
 ## One pass
 
 0. `pica-journal mirror` (see Memory sheets).
-1. `pica-journal pending` prints `version <v>` (this skill is for 0.1; if the major or minor differs, say so in
+1. `pica-journal pending` prints `version <v>` (this skill is for 0.2; if the major or minor differs, say so in
    your first reply and carry on), then each unread `ask` as a JSON line (`sheet`, `item`, `text`), then
    `cursor <n>`. If there are no asks, run `ack <n>` and stop.
-2. For each ask, `pica-journal read <sheet>` gives the sheet as Markdown; every block ends with its
+2. Before reading, tell pica you have them: `pica-journal reading <sheet> <item> [<item>…]`, once per sheet, with
+   every ask's item on it. Their ☞ breathe in green on the writer's page until your reply arrives.
+3. For each ask, `pica-journal read <sheet>` gives the sheet as Markdown; every block ends with its
    `{#id}`. Read it for context.
-3. Answer: `pica-journal reply <sheet> <item> "<markdown>"`.
+4. Answer: `pica-journal reply <sheet> <item> "<markdown>"`.
    - Short and plain: under 150 words unless the writer asks for more. No preamble, no sign-off (pica signs it).
    - Longer work (a plan, notes, a draft) goes into a new sheet:
      `pica-journal sheet "<title>" "<markdown>"` prints `sheet:<id>`; then reply with one or two
      sentences and a link, `[<title>](sheet:<id>)`.
    - Links may only be `sheet:<id>`, `https://…` or `mailto:…`.
-4. When every ask is answered, `pica-journal ack <n>` with the number from step 1.
+5. When every ask is answered, `pica-journal ack <n>` with the number from step 1.
 
 ## Memory sheets
 
