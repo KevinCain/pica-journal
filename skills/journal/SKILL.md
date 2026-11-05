@@ -26,6 +26,9 @@ replies that pica sets in green under the item. All reading and writing goes thr
      `pica-journal sheet "<title>" "<markdown>"` prints `sheet:<id>`; then reply with one or two
      sentences and a link, `[<title>](sheet:<id>)`.
    - Links may only be `sheet:<id>`, `https://…` or `mailto:…`.
+   - An ask with `thread` is a follow-up: the writer answering back under an earlier reply. In `read` it is
+     indented under the item `{#<thread>}`. Read that whole conversation, then reply to the follow-up's own
+     `item`, not the first item. One turn of a conversation: shorter still, and don't repeat what you said.
 5. When every ask is answered, `pica-journal ack <n>` with the number from step 1.
 
 ## Memory sheets
