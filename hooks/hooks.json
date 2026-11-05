@@ -1,0 +1,8 @@
+{
+  "description": "At the end of each turn, keep what Claude wrote in the terminal beside the journal replies that turn made (Claude's prose only, never tool output). Silent outside a journal folder.",
+  "hooks": {
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "node \"${CLAUDE_PLUGIN_ROOT}/lib/journal.mjs\" full", "timeout": 10 } ] }
+    ]
+  }
+}

@@ -21,7 +21,15 @@ replies that pica sets in green under the item. All reading and writing goes thr
 3. For each ask, `pica-journal read <sheet>` gives the sheet as Markdown; every block ends with its
    `{#id}`. Read it for context.
 4. Answer: `pica-journal reply <sheet> <item> "<markdown>"`.
+   - **Think in the terminal; distil in the journal.** Do the working where you are: read, reason, try things,
+     and write it out as fully as helps. The reply is different: it is the record the writer keeps beside their
+     text, in the manner of Knuth's literate programming. Say what you found or decided, why, and what it changes,
+     in prose a reader can follow a month from now without the session. Name code as `path:line`, link sheets,
+     and leave out the steps that got you there.
    - Short and plain: under 150 words unless the writer asks for more. No preamble, no sign-off (pica signs it).
+   - What you write in the terminal for the turn is kept beside the reply (the ¶ on its signature opens it), so
+     the reply need not carry the working. Only your own prose is kept, never tool output; still, write nothing
+     there you would not have the writer read.
    - Longer work (a plan, notes, a draft) goes into a new sheet:
      `pica-journal sheet "<title>" "<markdown>"` prints `sheet:<id>`; then reply with one or two
      sentences and a link, `[<title>](sheet:<id>)`.
