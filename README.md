@@ -12,12 +12,25 @@ claude plugin install pica-journal@pica
 
 ## Each session
 
+In a writer's folder, start Claude in the folder you chose in pica. In a code project, start it anywhere in the
+project: the journal is the project's `journal/` folder.
+
 ```
-cd <the folder you chose in pica>
+cd <the folder you chose in pica, or your project>
 claude --dangerously-load-development-channels plugin:pica-journal@pica
 ```
 
-Then, the first time, `/pica-journal:setup`.
+Then, the first time, `/pica-journal:setup`. It makes `journal/` in a project if it is not there yet, asks
+whether git should ignore it, offers the one-line allowlist, and says what to choose in pica (drawer → Journal →
+Choose folder): in a project, the project folder.
+
+To type less, add an alias to your shell's startup file:
+
+```
+alias claude-journal='claude --dangerously-load-development-channels plugin:pica-journal@pica'
+```
+
+`pica-journal where` shows which folder a session uses. `PICA_JOURNAL=<folder>` points it anywhere else.
 
 Channels are a Claude Code research preview: the flag is needed until this plugin is on Anthropic's allowlist.
 The channel only announces *how many* entries arrived, never their text; Claude reads them with

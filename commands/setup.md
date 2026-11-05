@@ -1,23 +1,33 @@
 ---
-description: Set up this folder for the pica journal (checks, then a one-line allowlist after asking)
+description: Set up the pica journal here, in a writer's folder or a code project (checks, then asks before each change)
 ---
 
-Set up the current folder as the writer's pica journal. Do each step in order and report briefly.
+Set up the pica journal for this session's folder or project. Do each step in order and report briefly.
 
-1. Check the folder: run `pica-journal sheets`. If it fails or the folder has neither `sheets/` nor
-   `outbox.jsonl`, say the writer should start Claude in the folder they chose in pica
-   (drawer → Journal → Choose folder), and stop.
-2. Check Node: `node --version` must be 18 or later.
-3. Propose the allowlist. Show the writer exactly this, for `.claude/settings.json` in this folder:
+1. Find the journal: run `pica-journal where`. It prints `journal <folder>`, `project <folder>` and `state`.
+   - `state ready`: pica has written there already. Go on.
+   - `state empty`: the folder exists and pica has not written to it yet. Go on.
+   - `state missing`: say where the journal will be (`<project>/journal` in a code project) and run
+     `pica-journal init` to make it.
+2. In a git project, if the journal folder is inside it, run `git check-ignore -q <journal folder>`. If it is not
+   ignored, ask the writer which they want, recommending the first:
+   - keep the journal out of git: add `/journal/` to the project's `.gitignore` (its sheets are the writer's
+     notes and Claude's replies, private to this computer);
+   - commit it, so the project's history keeps the conversation.
+   Change `.gitignore` only on a clear answer.
+3. Check Node: `node --version` must be 18 or later.
+4. Propose the allowlist, so Claude runs the journal command without asking each time and nothing else:
 
    ```json
    { "permissions": { "allow": ["Bash(pica-journal:*)"] } }
    ```
 
-   Explain in one sentence: it lets Claude run the journal command without asking each time; nothing else.
-   Ask whether to write it. Only on a clear yes, merge it into any existing `.claude/settings.json`
-   (keep every other setting) and show the result.
-4. Say how to start listening from now on:
+   In a code project, offer `.claude/settings.local.json` (just this computer) or `.claude/settings.json` (shared
+   with everyone who works on the project); in a writer's folder, `.claude/settings.json`. Only on a clear yes,
+   merge it into that file (keep every other setting) and show the result.
+5. Say what to choose in pica (drawer → Journal → Choose folder): in a code project, the project folder (pica
+   uses its `journal/` folder) or the journal folder itself; for a writer, the folder Claude runs in.
+6. Say how to start listening from now on, from anywhere in the project:
    `claude --dangerously-load-development-channels plugin:pica-journal@pica`
-   and that a `.listening` file in the folder tells pica a session is waiting.
-5. Run one journal pass now (the `journal` skill).
+   (a shell alias saves typing it), and that a `.listening` file in the journal tells pica a session is waiting.
+7. If the state was `ready`, run one journal pass now (the `journal` skill).
