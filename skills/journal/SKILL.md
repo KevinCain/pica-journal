@@ -38,6 +38,8 @@ never read or write the journal's files any other way.
    - An ask with `thread` is a follow-up: the writer answering back under an earlier reply. In `read` it is
      indented under the item `{#<thread>}`. Read that whole conversation, then reply to the follow-up's own
      `item`, not the first item. One turn of a conversation: shorter still, and don't repeat what you said.
+   - Items nest: in `read`, an item indented four spaces a level sits under the item above it, as a point of
+     it. Read an ask in the light of the items it is nested under.
 5. When every ask is answered, `pica-journal ack <n>` with the number from step 1.
 
 ## Memory sheets
