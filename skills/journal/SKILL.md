@@ -40,6 +40,9 @@ never read or write the journal's files any other way.
      `item`, not the first item. One turn of a conversation: shorter still, and don't repeat what you said.
    - Items nest: in `read`, an item indented four spaces a level sits under the item above it, as a point of
      it. Read an ask in the light of the items it is nested under.
+   - Items are numbered as the writer sees them (`[open, 2.]`, `[sent, A.1]`). Numbers move when an item is
+     added above, so when you refer to another item, quote a few of its words with the number, never the
+     number alone.
 5. When every ask is answered, `pica-journal ack <n>` with the number from step 1.
 
 ## Memory sheets

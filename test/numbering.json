@@ -1,0 +1,389 @@
+{
+ "about": "Sample sheets and the labels both sides must give them: pica's src/numbering.ts and this plugin's lib/numbering.mjs. Each case's blocks are what numbering sees (an item of the outline with its depth, a reply or follow-up, anything else); labels are per style, null where a block has none.",
+ "cases": [
+  {
+   "name": "a flat list",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    }
+   ],
+   "labels": {
+    "1": [
+     "1.",
+     "2.",
+     "3."
+    ],
+    "1.1": [
+     "1.",
+     "2.",
+     "3."
+    ],
+    "A.1": [
+     "A.",
+     "B.",
+     "C."
+    ],
+    "off": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "name": "replies and follow-ups neither count nor break a list",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "thread"
+    },
+    {
+     "kind": "thread"
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "thread"
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    }
+   ],
+   "labels": {
+    "1": [
+     "1.",
+     null,
+     null,
+     "2.",
+     null,
+     "3."
+    ]
+   }
+  },
+  {
+   "name": "a paragraph ends the list; the next starts at 1",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "other"
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    }
+   ],
+   "labels": {
+    "1": [
+     "1.",
+     "2.",
+     null,
+     "1."
+    ]
+   }
+  },
+  {
+   "name": "nesting",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 2
+    },
+    {
+     "kind": "item",
+     "depth": 3
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    }
+   ],
+   "labels": {
+    "1": [
+     "1.",
+     "a.",
+     "i.",
+     "1.",
+     "b.",
+     "2."
+    ],
+    "1.1": [
+     "1.",
+     "1.1",
+     "1.1.1",
+     "1.1.1.1",
+     "1.2",
+     "2."
+    ],
+    "A.1": [
+     "A.",
+     "A.1",
+     "A.1.1",
+     "A.1.1.1",
+     "A.2",
+     "B."
+    ]
+   }
+  },
+  {
+   "name": "a skipped level counts as one below",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 3
+    },
+    {
+     "kind": "item",
+     "depth": 3
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    }
+   ],
+   "labels": {
+    "1.1": [
+     "1.",
+     "1.1",
+     "1.2",
+     "1.3"
+    ]
+   }
+  },
+  {
+   "name": "a list that opens nested starts at its top",
+   "blocks": [
+    {
+     "kind": "other"
+    },
+    {
+     "kind": "item",
+     "depth": 2
+    },
+    {
+     "kind": "item",
+     "depth": 2
+    }
+   ],
+   "labels": {
+    "1.1": [
+     null,
+     "1.",
+     "2."
+    ]
+   }
+  },
+  {
+   "name": "counts past 26 and roman numerals",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 2
+    },
+    {
+     "kind": "item",
+     "depth": 2
+    },
+    {
+     "kind": "item",
+     "depth": 2
+    },
+    {
+     "kind": "item",
+     "depth": 2
+    }
+   ],
+   "labels": {
+    "1": [
+     "1.",
+     "a.",
+     "b.",
+     "c.",
+     "d.",
+     "e.",
+     "f.",
+     "g.",
+     "h.",
+     "i.",
+     "j.",
+     "k.",
+     "l.",
+     "m.",
+     "n.",
+     "o.",
+     "p.",
+     "q.",
+     "r.",
+     "s.",
+     "t.",
+     "u.",
+     "v.",
+     "w.",
+     "x.",
+     "y.",
+     "z.",
+     "aa.",
+     "ab.",
+     "i.",
+     "ii.",
+     "iii.",
+     "iv."
+    ]
+   }
+  }
+ ]
+}
