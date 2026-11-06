@@ -38,6 +38,12 @@ never read or write the journal's files any other way.
    - An ask with `thread` is a follow-up: the writer answering back under an earlier reply. In `read` it is
      indented under the item `{#<thread>}`. Read that whole conversation, then reply to the follow-up's own
      `item`, not the first item. One turn of a conversation: shorter still, and don't repeat what you said.
+   - When your reply reports work **done** that an item asked for, also propose the item's wording as a record:
+     `pica-journal recast <sheet> <item> "<md>"`, the request in the past tense ("Split the parser into three
+     passes." for "Can you split the parser?"), in the writer's voice and about as long. pica shows it under
+     the item and the writer takes it with one click. Never with a reply that only proposes a plan: the
+     record would claim what hasn't happened; send it once the plan is carried out. Not when `read` already
+     shows a proposed wording for the item.
    - Items nest: in `read`, an item indented four spaces a level sits under the item above it, as a point of
      it. Read an ask in the light of the items it is nested under.
    - Items are numbered as the writer sees them (`[open, 2.]`, `[sent, A.1]`). Numbers move when an item is
