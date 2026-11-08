@@ -384,6 +384,162 @@
      "iv."
     ]
    }
+  },
+  {
+   "name": "a list started with - is bulleted whatever the style (J1)",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0,
+     "bullet": true
+    },
+    {
+     "kind": "item",
+     "depth": 0,
+     "bullet": true
+    },
+    {
+     "kind": "item",
+     "depth": 1,
+     "bullet": true
+    }
+   ],
+   "labels": {
+    "1": [
+     null,
+     null,
+     null
+    ],
+    "1.1": [
+     null,
+     null,
+     null
+    ],
+    "A.1": [
+     null,
+     null,
+     null
+    ],
+    "off": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "name": "the first item decides for nested items; a top-level 1. after bullets starts a new list",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0,
+     "bullet": true
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "thread"
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    }
+   ],
+   "labels": {
+    "1": [
+     null,
+     null,
+     null,
+     "1."
+    ],
+    "off": [
+     null,
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  {
+   "name": "a bulleted list, a paragraph, then a numbered list counting from 1",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0,
+     "bullet": true
+    },
+    {
+     "kind": "item",
+     "depth": 0,
+     "bullet": true
+    },
+    {
+     "kind": "other"
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 1
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    }
+   ],
+   "labels": {
+    "1": [
+     null,
+     null,
+     null,
+     "1.",
+     "a.",
+     "2."
+    ],
+    "1.1": [
+     null,
+     null,
+     null,
+     "1.",
+     "1.1",
+     "2."
+    ]
+   }
+  },
+  {
+   "name": "a top-level - after a numbered list starts a bulleted one",
+   "blocks": [
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 0
+    },
+    {
+     "kind": "item",
+     "depth": 0,
+     "bullet": true
+    },
+    {
+     "kind": "item",
+     "depth": 0,
+     "bullet": true
+    }
+   ],
+   "labels": {
+    "1": [
+     "1.",
+     "2.",
+     null,
+     null
+    ]
+   }
   }
  ]
 }
