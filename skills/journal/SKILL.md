@@ -74,6 +74,10 @@ pass. A memory you saved that pica has not seen arrives with "keep it?". `pendin
   `j-keep` (a new memory) — nothing to do.
 - `decline` on `j-keep` — run `pica-journal forget <sheet>` and reply that you have forgotten it.
   `decline` on an amend's item — reply with `--replace` that the memory stays as it was.
+- `reworded` — the writer took Claude's wording of an item (a `recast`) that already has replies, and they
+  answered the old wording. Read the item's replies and write one that sums up what was and is present, with
+  `reply --replace <sheet> <item> "…"`: the result and where it lives, not the story of the asking. Keep what
+  is true of state (`--state`, `--phase`) and drop what has gone stale ("not committed"). Nothing else to do.
 - `agree` on an ordinary item (a plan you proposed with `--awaits`) — the writer has said go ahead: carry the
   plan out now, then `reply --replace` with one reply that stands for the whole exchange: what was proposed,
   that the writer agreed, and what you did (paths, as `path:line`), with a `recast` of the item. pica keeps
@@ -111,6 +115,17 @@ not ✓'d (`adopt` refuses).
     writer's follow-up. Offer only what you are ready to do; never an offer for something the reply has
     already done, and none where the reply asks a question or waits with `--awaits`. Labels the writer has
     often used come back from pica as pills of their own, so repeat a familiar label word for word.
+  - **State.** Add `--state worked`, `planned`, `committed`, `pushed` (a comma list) to say what has happened to
+    the item; pica sets it on the reply's signature, so the writer sees it. `worked`: you began or did the work;
+    `planned`: you only proposed a plan (never with `worked`). `committed` and `pushed` are checked against git
+    here and refused when untrue (uncommitted changes, commits not on the upstream branch). Never claim a mark
+    that is not true.
+  - **Phases.** Work that goes in steps (a plan the writer agreed with ✓) is done and reported one phase at a time.
+    After each phase, reply with `--phase <n>/<total> --state worked` (add `committed` or `pushed` only when true):
+    pica sets "Phase 2 of 3 · worked" on the signature, and a phase before the last offers a **Continue** pill by
+    itself. Stop there; a click on Continue arrives as a follow-up, and you do the next phase. The last phase
+    carries `--phase <total>/<total>` and no Continue. Say in each reply what that phase did and what the next
+    will. Never run on into the next phase without the writer's Continue unless the plan said to.
   - Ordinary answers take no flag: nothing waits on them.
 - Never put secrets, tokens or environment values in a reply or sheet.
 - One reply per ask. If an ask's item no longer exists (the script says so), skip it.
