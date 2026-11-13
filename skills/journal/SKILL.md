@@ -105,6 +105,12 @@ not ✓'d (`adopt` refuses).
     reply with `--blocked`, saying what was done, what was stopped, and the exact command
     (`git push origin main`). pica then shows the writer how to allow it: once in the terminal, or with a rule
     added under `/permissions`. You cannot add the rule yourself.
+  - **Offers.** When a reply ends where the writer will likely say one short thing next ("Commit and push",
+    "Add to the log", "Audit the plan"), add `--offer "<label>"` (up to three, one line, 40 characters, in the
+    writer's voice, imperative). pica sets each as a pill at the end of the reply; a click sends it as the
+    writer's follow-up. Offer only what you are ready to do; never an offer for something the reply has
+    already done, and none where the reply asks a question or waits with `--awaits`. Labels the writer has
+    often used come back from pica as pills of their own, so repeat a familiar label word for word.
   - Ordinary answers take no flag: nothing waits on them.
 - Never put secrets, tokens or environment values in a reply or sheet.
 - One reply per ask. If an ask's item no longer exists (the script says so), skip it.
