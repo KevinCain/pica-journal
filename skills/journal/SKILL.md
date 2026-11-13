@@ -100,7 +100,11 @@ not ✓'d (`adopt` refuses).
     reach outside the project or be hard to undo: pushing, deploying, publishing, sending messages, deleting
     data, spending money. Carry the plan out on `agree`.
   - The session's own permissions still apply: a step that waits for the writer's OK in the terminal waits
-    there; say so in the reply if it is holding the work up.
+    there; say so in the reply if it is holding the work up. When Claude Code's permission check denies a step
+    outright (a commit, a push that deploys, a write outside the project), do not look for a way around it:
+    reply with `--blocked`, saying what was done, what was stopped, and the exact command
+    (`git push origin main`). pica then shows the writer how to allow it: once in the terminal, or with a rule
+    added under `/permissions`. You cannot add the rule yourself.
   - Ordinary answers take no flag: nothing waits on them.
 - Never put secrets, tokens or environment values in a reply or sheet.
 - One reply per ask. If an ask's item no longer exists (the script says so), skip it.
