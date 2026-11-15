@@ -28,9 +28,8 @@ never read or write the journal's files any other way.
      in prose a reader can follow a month from now without the session. Name code as `path:line`, link sheets,
      and leave out the steps that got you there.
    - Short and plain: under 150 words unless the writer asks for more. No preamble, no sign-off (pica signs it).
-   - What you write in the terminal for the turn is kept beside the reply (the ¶ on its signature opens it), so
-     the reply need not carry the working. Only your own prose is kept, never tool output; still, write nothing
-     there you would not have the writer read.
+   - Nothing you write in the terminal is kept: the reply is all the writer has of the turn. So it carries the
+     conclusion and the reason, and names where the working lives (`path:line`, a commit, a sheet).
    - Longer work (a plan, notes, a draft) goes into a new sheet:
      `pica-journal sheet "<title>" "<markdown>"` prints `sheet:<id>`; then reply with one or two
      sentences and a link, `[<title>](sheet:<id>)`.
