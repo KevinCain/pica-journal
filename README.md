@@ -36,6 +36,14 @@ Channels are a Claude Code research preview: the flag is needed until this plugi
 The channel only announces *how many* entries arrived, never their text; Claude reads them with
 `pica-journal pending`, and treats only the items you sent with ☞ as instructions.
 
+## References to code
+
+In a code project a reply can point at the code instead of quoting it (`reply --ref src/app.ts#render`, up to
+three). The reply carries a snapshot of at most 12 lines; when you open the reference in pica, the running
+session's channel reads the lines as they are now and follows them through edits since, using `git diff`. It
+never reads `.env` files, key files, git-ignored files or anything under `.git`, and refuses an excerpt that
+looks like it holds a key. `pica-journal resolve <reply-id> <n>` shows what pica would be shown.
+
 ## Needs
 
 - Claude Code signed in with claude.ai (Pro or Max) or a Console API key. Team and Enterprise: an Owner must turn

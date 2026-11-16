@@ -14,7 +14,7 @@ never read or write the journal's files any other way.
 ## One pass
 
 0. `pica-journal mirror` (see Memory sheets).
-1. `pica-journal pending` prints `version <v>` (this skill is for 0.4; if the major or minor differs, say so in
+1. `pica-journal pending` prints `version <v>` (this skill is for 0.5; if the major or minor differs, say so in
    your first reply and carry on), then each unread `ask` as a JSON line (`sheet`, `item`, `text`), then
    `cursor <n>`. If there are no asks, run `ack <n>` and stop.
 2. Before reading, tell pica you have them: `pica-journal reading <sheet> <item> [<item>…]`, once per sheet, with
@@ -30,6 +30,18 @@ never read or write the journal's files any other way.
    - Short and plain: under 150 words unless the writer asks for more. No preamble, no sign-off (pica signs it).
    - Nothing you write in the terminal is kept: the reply is all the writer has of the turn. So it carries the
      conclusion and the reason, and names where the working lives (`path:line`, a commit, a sheet).
+   - **References, not pasted code.** When the reply is about code, point at it with `--ref` (up to three) and
+     never paste code into the reply: `--ref src/journal.ts:399-441`, `--ref src/journal.ts#readInbox` (a
+     function, class or method by name), or `--ref README.md` (its head). Add `--why "<a few words>"` straight
+     after a `--ref` to say what the lines show. The script takes a small snapshot (12 lines) and refuses secrets
+     files, git-ignored files and excerpts that look like keys; when it refuses, point elsewhere or describe the
+     lines in words. pica sets a § on the reply's signature; the writer opens it to see the lines as they are
+     now, followed through later edits. Reference what the reply's claim rests on (the change you made, the
+     place a bug lives), not every file you read.
+   - **Detail.** Working the writer may want but the reply should not carry (the steps of a diagnosis, the
+     options weighed, a measurement) goes in `--detail "<markdown>"` (or `--detail @file`, at most 12,000
+     characters). It is kept beside the reply, opened from the §, never set on the page or printed. The reply
+     must still stand without it.
    - Longer work (a plan, notes, a draft) goes into a new sheet:
      `pica-journal sheet "<title>" "<markdown>"` prints `sheet:<id>`; then reply with one or two
      sentences and a link, `[<title>](sheet:<id>)`.
