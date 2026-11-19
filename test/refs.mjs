@@ -10,7 +10,7 @@ const w = (f, s) => { fs.mkdirSync(path.dirname(path.join(dir, f)), { recursive:
 const g = (...a) => execFileSync('git', a, { cwd: dir, stdio: 'ignore' });
 w('src/a.ts', '// header\nexport function readInbox(x: number) {\n  return x;\n}\n\nclass Box {\n  async open() {\n    readInbox(2);\n  }\n}\n');
 w('.env', 'A=1\n'); w('.gitignore', 'dist\n'); w('dist/o.js', 'x\n'); w('src/k.ts', 'const k = "ghp_abcdefghijklmnopqrstuvwxyz";\n');
-w('src/p.ts', 'let password = "hunter22";\n'); fs.symlinkSync('.env', path.join(dir, 'link.txt')); fs.mkdirSync(path.join(dir, 'journal'));
+w('src/p.ts', 'let password = "hunter22";\n'); w('src/m.ts', 'a\nb\nc\nx\nd\nx\n'); fs.symlinkSync('.env', path.join(dir, 'link.txt')); fs.mkdirSync(path.join(dir, 'journal'));
 g('init', '-q'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'add', '-A'); g('-c', 'user.email=t@t', '-c', 'user.name=t', 'commit', '-qm', 'one');
 process.chdir(dir); process.env.CLAUDE_PROJECT_DIR = dir; delete process.env.PICA_JOURNAL;
 const R = await import('../lib/refs.mjs');
@@ -38,6 +38,12 @@ r = await R.resolveRef(lines, { view: 'then', span: 40 });
 ok(r.status === 'then' && r.text.includes('class Box'), 'then: the lines as they were at the sha');
 w('src/a.ts', 'export function readInbox(x: number) {\n  let password = "letmein1";\n');
 ok((await R.resolveRef(sym)).status === 'refused', 'a view that now holds a secret is refused');
+// a line deleted above an anchor that appears twice: git's line map must say where the old line went (a pure
+// deletion's hunk, "-2,1 +1,0", names the line before it)
+const { ref: twice } = await R.makeRef('src/m.ts:6');
+w('src/m.ts', 'a\nc\nx\nd\nx\n');
+r = await R.resolveRef(twice);
+ok(r.status === 'approximate' && r.at === 5, 'after a deletion above, the nearer of two matches is the one git maps to: ' + JSON.stringify({ ...r, text: undefined }));
 fs.rmSync(path.join(dir, 'src/a.ts'));
 ok((await R.resolveRef(sym)).status === 'gone', 'a file removed is gone');
 
