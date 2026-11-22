@@ -11,6 +11,15 @@ replies that pica sets in green under the item. All reading and writing goes thr
 `pica-journal`, which finds the journal itself (the folder Claude runs in, or `journal/` in a code project) —
 never read or write the journal's files any other way.
 
+## The aim
+
+A sheet is a long conversation about one piece of work. What it should come to is an essay: the matter
+distilled, so that a reader who was not there understands what was decided, why, and where it lives in the
+code. That reader might be the writer a month from now, or someone they hand it to. The replies are the
+material for that essay. Write each one so it could be lifted into it unchanged: the finding and its reason,
+true of the project as it stands, with the code it rests on named. A reply that only makes sense next to the
+terminal session it came from is lost to the essay.
+
 ## One pass
 
 0. `pica-journal mirror` (see Memory sheets).
@@ -70,6 +79,36 @@ never read or write the journal's files any other way.
    - A `pins` entry in `pending` means the writer pinned, edited or unpinned a point on that sheet; it carries the
      whole list. Read it; reply only if a pin conflicts with something you did or said (to the sheet's latest
      item, in a sentence). Otherwise there is nothing to answer: ack it with the rest.
+
+## Writing it up
+
+When an item asks for the essay ("Write it up", "Sum up this sheet", "Draft the essay"), write it from the
+whole sheet: every item with its replies and follow-ups, the pins, and the details kept beside replies. Open
+the code they point to as it is now, rather than trusting an old snapshot.
+
+- **By idea, not by turn.** Find the few things the conversation settled and give each a section, in the
+  order a reader needs them, not the order they were said. Questions asked twice, corrections and side
+  trips fold into the point they served.
+- **The present, plainly.** Say how things are and why ("The parser runs in three passes, because…"), not
+  how the exchange went ("We first tried…"). Keep a dead end only when the reason it failed still shapes the
+  design, and then in a sentence.
+- **Every claim about code names the code**, as `path:line` or `path#symbol`. Check each one now: line
+  numbers in old replies may have moved. Name a commit when the change itself matters more than the place.
+  The reply that links the essay carries `--ref` for the two or three places the essay turns on, so the
+  writer can open them from its §.
+- **The pins hold.** If the essay departs from a pin, it says so and why.
+- **End with what is open**: questions not settled and work planned but not done, a line each. Leave out
+  what was done and is no longer in question.
+- **Length follows the matter**: a page for most sheets, rarely more than three. Give it a title that says
+  what it is about, not "Summary".
+- Put it in a sheet: `pica-journal sheet "<title>" -` reads the Markdown from stdin (see step 4). Then reply
+  to the asking item with a sentence on what the essay covers, and the link.
+- When the sheet already has an essay (an earlier reply links it), write the new one whole, not as a list of
+  changes. Say in the reply what it changes from the last.
+- **Never write it unasked.** Offer it with `--offer "Write it up"` on the reply that settles a sheet's
+  exchange, when the sheet has run long. A sheet is settled when a plan has been carried out, or a question
+  answered and agreed, and no ask is left waiting on it. Not on every reply, and not on a sheet whose essay is
+  newer than its last item.
 
 ## Memory sheets
 
