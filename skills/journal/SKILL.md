@@ -23,7 +23,7 @@ terminal session it came from is lost to the essay.
 ## One pass
 
 0. `pica-journal mirror` (see Memory sheets).
-1. `pica-journal pending` prints `version <v>` (this skill is for 0.5; if the major or minor differs, say so in
+1. `pica-journal pending` prints `version <v>` (this skill is for 0.6; if the major or minor differs, say so in
    your first reply and carry on), then each unread `ask` as a JSON line (`sheet`, `item`, `text`), then
    `cursor <n>`. If there are no asks, run `ack <n>` and stop.
 2. Before reading, tell pica you have them: `pica-journal reading <sheet> <item> [<item>…]`, once per sheet, with
@@ -110,6 +110,87 @@ the code they point to as it is now, rather than trusting an old snapshot.
   answered and agreed, and no ask is left waiting on it. Not on every reply, and not on a sheet whose essay is
   newer than its last item.
 
+## Plan sheets
+
+A plan longer than a short reply, or one the writer will want to approve a step at a time, goes in a plan
+sheet instead of one `--awaits` reply: the writer approves each step by sending it, and the sheet ends as the
+record of what was done.
+
+- **The form.** A sheet with a heading `## Steps` (in the writer's language pica also knows `Étapes`, `Schritte`, `Pasos`). Each top-level item under it is one step, in the order to
+  carry them out, saying what it does and which steps it needs ("Needs 2."). What a step will read or
+  produce, and anything it would let go of, goes in lines nested under it. Everything else on the sheet (the
+  reasons, the choices already made as ✓ items) is discussion. pica's **Approve all** sends the open
+  top-level items under Steps and nothing else.
+- **Write it** with `pica-journal sheet "<title>" -`, then reply to the asking item with a sentence and the
+  link, with `--state planned`. Never open an item with ☞ (the script refuses it: a sheet arrives whole, so
+  pica would show the item as sent with nothing sent); ✓ for a choice already made is fine.
+- **Carry out only the steps sent.** Each arrives as an ask on its item. Before acting, `read` the sheet: a
+  nested line marked ✗ is struck (a `Let go: …` line marked ✗ means keep that fact), and a line added under
+  the step changes it. Do the steps in the sheet's order when several arrive together; a step whose "Needs"
+  are not done yet waits, and its reply says so.
+- **Answer each step** on its own item, with what was done, `path:line`, and `--state worked` (plus
+  `committed` or `pushed` when true), then a `recast` of the step in the past tense. No `--phase` on a plan
+  sheet: the steps are its phases, and a Continue pill would follow up on the same step while the next waits
+  for its own ☞.
+- **An item outside Steps sent with ☞** is a question about the plan: answer it, change the plan if the
+  writer asks (a new sheet for a big change, or a reply naming the steps it alters), and act on nothing.
+- A `decline` (✗) on a step already sent stops it: say what had been done and what is left undone.
+
+## Import
+
+An item from pica's **Journal ▸ Import your project…** reads "Import this project (transcripts: no)" or "(transcripts:
+yes)", in the writer's language, on a sheet of its own. The aim is the journal's: a few essays a reader can follow,
+never a catalog of the code.
+
+1. **Not a project** (no git here): reply so, in a sentence, and stop.
+2. **Survey.** Run `pica-journal survey`, adding `--transcripts` only when the item says yes. When the project's
+   index sheet ("The project as it stands") has a pin "Imported up to <commit>", add `--since <commit>`: the
+   digest then says what moved, and if that commit is no longer in the history (a rebase), survey it fresh. The
+   survey does the weighing (what survives, removals, branches, threads); trust it for that and read the code for
+   what it means.
+3. **Plan.** Write a plan sheet (above): one step for each essay worth writing, at most 12, each named for its
+   idea, not its folder, with nested lines naming the thread, the leading commits and the transcript sessions it
+   will read; then a step for the index. Below the steps, a sentence names the threads left out and why. Reply to
+   the Import item with the link and `--state planned`.
+4. **Essays,** one sheet per step sent, 1–3 pages, written as "Writing it up" says: the present, by idea, every
+   claim about code named as `path:line` or `path#symbol` and checked now, commits named where the change is the
+   point. Read transcripts only with `pica-journal survey transcript <session> --files <the thread's files>`,
+   never the files under ~/.claude yourself; the writer's words outrank a summary, which is Claude's claim. Nothing
+   private from a transcript goes into an essay (names, addresses, guests' or customers' details), even when the
+   filter missed it. Reply to the step with the link and `--ref` for the two or three places the essay turns on.
+5. **Index,** last: one page, "The project as it stands", linking each essay and listing what is open. Then
+   `pica-journal pin <index sheet> "Imported up to <HEAD commit>"`, so the next import knows where it read to.
+
+## Refactor
+
+A refactor changes a sheet's shape without changing what it says is true now: its pins, its open items and its
+current references. Done matters and their replies fold into prose in your voice; the sheet keeps its id, so links,
+pins and the references on replies hold, and pica keeps the sheet as it was in the Archive, linked from the new one.
+
+- **Never unasked.** Offer it with `--offer "Refactor this sheet"` on a reply, when a sheet has grown long or deeply
+  nested and no ask is waiting on it. A refactor of several sheets is a plan sheet (above): one step for each sheet,
+  then one for the journal's index.
+- **Let go lines.** Under each refactor step, each fact the rewrite would drop gets a nested line, `Let go: <the
+  fact> (from “<a few words of the item>”)`. Before rewriting, `read` the plan sheet: a Let go line marked ✗ is a
+  fact to keep.
+- **Read, then rewrite.** `read` the sheet: its first line is `<!-- version <v> -->`. Write the new sheet in
+  Markdown and send it with `pica-journal rewrite --base <v> <sheet> -` (stdin). A line holding only `{#id}` keeps
+  that block of the writer's exactly as it is, with its replies; everything else is your new prose.
+- **The writer's words are never edited.** Keep a block by its `{#id}`, or leave it out (it stays in the archived
+  copy); never retype it. Every open item must be kept, and a follow-up only with the item it follows; the pins
+  come over by themselves. To reword an item, `recast` it after the rewrite: the writer takes it or not.
+- **Every claim cites.** Name code as `path:line` or `path#symbol`, checked now (line numbers in old replies move);
+  check a commit with `git cat-file -e <sha>`; cite an item as `[a few words](sheet:<id>#<item>)`, which the script
+  checks and pica opens, in the archived copy if a rewrite folded it away. Where the rewrite departs from a pin, say so.
+- **Refused.** pica applies nothing if the writer changed the sheet since your `read`, an ask on it is waiting, or
+  the rewrite breaks the rules above; `pending` then carries a `refused` entry with the reason. Read the sheet
+  again and rewrite it from what it says now, or answer what is waiting first. Don't reply to a refusal.
+- **What changed since.** pica ends a rewritten sheet with a line recording the date, the version it left and the
+  link to the sheet as it was. `read` says `unchanged since its last rewrite` or `changed since its last rewrite`;
+  the next refactor redoes only sheets that changed.
+- Answer the refactor step (or the item that asked) with what was folded, what was kept and the link to the copy
+  in the Archive (`sheets` lists it, archived), with `--state worked`.
+
 ## Memory sheets
 
 Each of your memory files is a sheet in pica, `mem-<file>`, under *What Claude remembers*. Start every pass
@@ -175,10 +256,14 @@ not ✓'d (`adopt` refuses).
     pica sets "Phase 2 of 3 · worked" on the signature, and a phase before the last offers a **Continue** pill by
     itself. Stop there; a click on Continue arrives as a follow-up, and you do the next phase. The last phase
     carries `--phase <total>/<total>` and no Continue. Say in each reply what that phase did and what the next
-    will. Never run on into the next phase without the writer's Continue unless the plan said to.
+    will. Never run on into the next phase without the writer's Continue unless the plan said to. Phases suit a
+    plan of a few steps inside one thread; a longer plan goes in a plan sheet (above), never both.
   - Ordinary answers take no flag: nothing waits on them.
 - Never put secrets, tokens or environment values in a reply or sheet.
 - One reply per ask. If an ask's item no longer exists (the script says so), skip it.
+- **Archived sheets** (`sheets` marks them, `read` says so at the top) are records the writer keeps: read and
+  link to them, but never reply to them, recast them or pin to them. An ask on one is rare (pica sends nothing from
+  them); if one comes, say in a sentence that the sheet is archived and the writer can take it out to go on.
 
 ## Running unattended
 

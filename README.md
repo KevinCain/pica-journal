@@ -44,6 +44,29 @@ session's channel reads the lines as they are now and follows them through edits
 never reads `.env` files, key files, git-ignored files or anything under `.git`, and refuses an excerpt that
 looks like it holds a key. `pica-journal resolve <reply-id> <n>` shows what pica would be shown.
 
+## Importing a project
+
+**Journal ▸ Import your project…** in pica asks Claude to distil the project into a few essays and an index,
+never a catalog of the code. Claude first runs `pica-journal survey`, which weighs the git history by what still
+survives at HEAD (blame without whitespace, following moves; the journal, lockfiles, generated, vendored, binary
+and large data files left out), groups it into threads, and counts removals and reverts as decisions too. Claude
+then proposes a plan sheet, one step for each essay; you send the steps you want with ☞, or Approve all steps.
+
+Reading Claude Code's own transcripts of the project is your choice at each import. When you choose it, the
+survey keeps only your words, Claude's answers and each session's last summary, and takes out email addresses,
+phone numbers, street addresses, keys and tokens before Claude reads any of it. The survey's cache (each file's
+blame, the transcript index and the filtered sessions) is kept in the plugin's data folder (`$CLAUDE_PLUGIN_DATA`,
+else `~/.cache/pica-journal`), never in the journal. Claude Code clears sessions older than `cleanupPeriodDays`
+(30 by default), so only recent conversations can be read.
+
+## Refactoring a sheet
+
+A long sheet can be rewritten in place as an essay (`pica-journal rewrite`, offered as **Refactor this sheet**, never
+run unasked). The sheet keeps its id, its pins and every open item; the writer's own words are kept as they are or
+left out, never retyped; and the sheet as it was goes to pica's Archive, linked from the new one. pica refuses the
+rewrite if the sheet changed since Claude read it or an ask on it is waiting. A link to an item,
+`sheet:<id>#<item>`, opens it even after a rewrite folded it away, in the archived copy.
+
 ## Needs
 
 - Claude Code signed in with claude.ai (Pro or Max) or a Console API key. Team and Enterprise: an Owner must turn
