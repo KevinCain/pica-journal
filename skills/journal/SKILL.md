@@ -139,27 +139,91 @@ record of what was done.
 ## Import
 
 An item from pica's **Journal ▸ Import your project…** reads "Import this project (transcripts: no)" or "(transcripts:
-yes)", in the writer's language, on a sheet of its own. The aim is the journal's: a few essays a reader can follow,
-never a catalog of the code.
+yes)", in the writer's language, on a sheet of its own. The aim is the journal's: distil, never log. A few essays a
+reader can follow, and a few sheets the project keeps (below), each saying what is true now; never a catalog of the
+code, never a copy of a log.
 
 1. **Not a project** (no git here): reply so, in a sentence, and stop.
-2. **Survey.** Run `pica-journal survey`, adding `--transcripts` only when the item says yes. When the project's
-   index sheet ("The project as it stands") has a pin "Imported up to <commit>", add `--since <commit>`: the
-   digest then says what moved, and if that commit is no longer in the history (a rebase), survey it fresh. The
-   survey does the weighing (what survives, removals, branches, threads); trust it for that and read the code for
-   what it means.
+2. **Survey.** Run `pica-journal survey`, adding `--transcripts` only when the item says yes (it also lists Claude's
+   memory folders for the project; the same consent covers them). When the project's index sheet ("The project as it
+   stands") has a pin "Imported up to <commit>", add `--since <commit>`: the digest then says what moved, threads
+   and kept sheets alike, and if that commit is no longer in the history (a rebase), survey it fresh. The survey
+   does the weighing (what survives, removals, branches, threads, documents by subject, how the project runs,
+   signals); trust it for that and read the code and the documents for what they mean. Read only git, the files at
+   HEAD and what survey gives: no live service, even when a tool for one is at hand.
+   - **Committed secrets** at the top of the digest go to the writer at once, in the reply to the Import item: the
+     file and the key's name, and that it should be rotated and read from the environment instead. Never the value;
+     never open the file to look.
 3. **Plan.** Write a plan sheet (above): one step for each essay worth writing, at most 12, each named for its
-   idea, not its folder, with nested lines naming the thread, the leading commits and the transcript sessions it
-   will read; then a step for the index. Below the steps, a sentence names the threads left out and why. Reply to
-   the Import item with the link and `--state planned`.
+   idea, not its folder, with nested lines naming the thread, the leading commits, the documents and the transcript
+   sessions it will read. Then, outside that cap, a step for each kept sheet the project supports (below; skip
+   Infrastructure when nothing is deployed, Commercial when no document or commit bears on it); then a step for
+   the index. Below the steps, a sentence names the threads left out and why. If the journal's memory folder
+   (`pica-journal memory`) is not the one most sessions ran in, say so under the plan, as a choice for the writer
+   (`pica-journal memory <folder>`). Reply to the Import item with the link and `--state planned`.
 4. **Essays,** one sheet per step sent, 1–3 pages, written as "Writing it up" says: the present, by idea, every
    claim about code named as `path:line` or `path#symbol` and checked now, commits named where the change is the
-   point. Read transcripts only with `pica-journal survey transcript <session> --files <the thread's files>`,
-   never the files under ~/.claude yourself; the writer's words outrank a summary, which is Claude's claim. Nothing
-   private from a transcript goes into an essay (names, addresses, guests' or customers' details), even when the
-   filter missed it. Reply to the step with the link and `--ref` for the two or three places the essay turns on.
-5. **Index,** last: one page, "The project as it stands", linking each essay and listing what is open. Then
-   `pica-journal pin <index sheet> "Imported up to <HEAD commit>"`, so the next import knows where it read to.
+   point. Security fixes and design reasoning belong here, dated where the date matters. Read transcripts only with
+   `pica-journal survey transcript <session> --files <the thread's files>`, never the files under ~/.claude
+   yourself; the writer's words outrank a summary, which is Claude's claim, and a memory is a claim too. Reply to
+   the step with the link and `--ref` for the two or three places the essay turns on.
+5. **Kept sheets,** one per step sent (below).
+6. **Index,** last: one page, "The project as it stands", linking the kept sheets first, then each essay, and
+   listing what is open. Then `pica-journal pin <index sheet> "Imported up to <HEAD commit>"`, so the next import
+   knows where it read to.
+
+**Privacy.** The names of the people and companies the project works with stay (clients, partners, contacts). The
+personal details of the product's own end users stay out, names included (a rental's guests, a shop's customers),
+and contact details (emails, phone numbers, addresses) stay out for everyone, even when the filter missed them.
+Nothing in code tells one kind of name from the other: that judgement is yours.
+
+### Kept sheets
+
+Sheets a project keeps across imports, outside the cap of 12 essays. Each says what is true now, and gives each
+fact **why it matters** (what goes wrong without it), **its evidence** (a file, a commit, a document, a dated
+answer from the writer) and **what is undecided**. A bare fact is a catalog line; these three make it something the
+next person can act on.
+
+- **The form.** pica's Markdown has no tables (a table arrives as one paragraph of pipes), and every list line
+  becomes an item, open until it is closed. So: a heading for each environment, service or question, then short
+  paragraphs that open with a bold label (**Purpose.** **Deploys.** **Resets.** **If it drifts.**). Items only for
+  what the writer is asked: a question, a custody to confirm, a decision. Never a list of facts.
+- **Pin each** as it is made: `pica-journal pin <sheet> "Kept by Import: <kind>"`, kind one of infrastructure,
+  credentials, how-we-work, technical, commercial, rules. A later import finds the sheet by its pin, never its
+  title (the writer may rename it).
+- **Infrastructure.** For each environment: its purpose, its data source, what deploys it and what resets it, and
+  what drift between them does. It answers "which action makes this fix visible in <environment>?": a push to main
+  may reach production while another environment deploys only by hand, from a working tree, and a scheduled reset
+  moves data, never code. Say expected absences as such (a setting whose absence is right in production and wrong
+  in preview). Then backups, monitoring, migrations and their traps (a migration edited after it was applied).
+  What only a live service knows (a restore window, which commit an environment runs) is an item to the writer.
+- **Credentials and access.** It answers "how do I regain access?". A heading for each service, live payments and
+  production first. Under it, each credential or account by its name or role, what it is for (a filming login, a
+  seeded admin, an OAuth client and a webhook signing secret do different jobs), its environment, where it is kept
+  or who recovers it (a password manager entry's label is a complete answer), and what depends on it. **Names,
+  never values**: the script refuses a value, and you never look for one. Custody and rotation are never inferred
+  (a commit touching an env file says nothing about the value); each unknown is an item: "Where should the next
+  person look for the demo login?". Then the vendors: in use, on the way out, named but never called from code.
+- **How we work.** Commands, skills and scripts, and when each is used; the steps to release and to deploy each
+  environment.
+- **Open questions: technical.** Each a heading, with a **hypothesis** given its own form where there is one: the
+  observation, the proposed explanation, the evidence that would settle it, and the decision it would change ("A
+  warning fired on 7 of 9 properties: is the threshold right?" keeps the result and the question together;
+  "improve the model" gives the next reader nothing to pick up). The digest's open ends and commit bodies that ask
+  seed it; the question itself is an item.
+- **Commercial: decisions and questions.** For each: the audience, the options considered, what was decided or
+  actually done (dated, with its evidence: the pricing that was built, a recipient who acted on part of an email),
+  and what the team wants to learn next, as an item beside the decision it bears on. From the project's documents
+  (the digest ranks them by subject) and commits; offered whenever they support it, git-only imports included.
+- **Rules kept by hand.** Each "when you change X, change Y" or standing rule (from the digest's Change together,
+  CLAUDE.md, documents) is an item on this sheet, never written to memory first. Reply to each with `--awaits`,
+  saying in a sentence what you would remember. On the writer's ✓ (`agree`), run `pica-journal remember <sheet>
+  <item> <name>`: it writes the item's words, as they stand, to the journal's memory folder, and mirrors it. On ✗,
+  reply that it is set aside. A rule whose pair the digest cannot show (two copies of a list that never change
+  together) is a question to the writer.
+- **A later import** (`--since`) never remakes a kept sheet. The digest's "Kept sheets" lines say which moved; for
+  each that did, the plan has a step "Bring <sheet> up to date", and sending it is the ask a refactor needs. Refactor
+  it as below, answering first whatever waits on it.
 
 ## Refactor
 
@@ -177,8 +241,10 @@ pins and the references on replies hold, and pica keeps the sheet as it was in t
   Markdown and send it with `pica-journal rewrite --base <v> <sheet> -` (stdin). A line holding only `{#id}` keeps
   that block of the writer's exactly as it is, with its replies; everything else is your new prose.
 - **The writer's words are never edited.** Keep a block by its `{#id}`, or leave it out (it stays in the archived
-  copy); never retype it. Every open item must be kept, and a follow-up only with the item it follows; the pins
-  come over by themselves. To reword an item, `recast` it after the rewrite: the writer takes it or not.
+  copy); never retype it. Every open item must be kept, and every answered one (a discussion survives its answer:
+  a reply that settles the facts of "should we retire it?" is not the writer's decision); beside an answered item
+  you may add its rationale, the decision if there is one, and what would justify reopening it. A follow-up comes
+  only with the item it follows; the pins come over by themselves. To reword an item, `recast` it after the rewrite: the writer takes it or not.
 - **Every claim cites.** Name code as `path:line` or `path#symbol`, checked now (line numbers in old replies move);
   check a commit with `git cat-file -e <sha>`; cite an item as `[a few words](sheet:<id>#<item>)`, which the script
   checks and pica opens, in the archived copy if a rewrite folded it away. Where the rewrite departs from a pin, say so.
@@ -216,8 +282,12 @@ pass. A memory you saved that pica has not seen arrives with "keep it?". `pendin
 - `decline` on an ordinary item — the matter is closed: `reply --replace` with one reply saying what was
   proposed and that the writer declined it. Change nothing.
 
-Never write memory files any other way while answering the journal, and never adopt a change the writer has
-not ✓'d (`adopt` refuses).
+A rule proposed on a sheet becomes a memory through `remember` (Kept sheets, above), only after the writer's ✓.
+The journal uses one memory folder, recorded at setup (`pica-journal memory` shows it and the candidates). A
+memory file holding what looks like a key is not mirrored; `mirror` says so once: tell the writer which file.
+
+Never write memory files any other way while answering the journal, and never adopt or remember what the writer
+has not ✓'d (`adopt` and `remember` refuse).
 
 ## Rules
 
@@ -259,7 +329,9 @@ not ✓'d (`adopt` refuses).
     will. Never run on into the next phase without the writer's Continue unless the plan said to. Phases suit a
     plan of a few steps inside one thread; a longer plan goes in a plan sheet (above), never both.
   - Ordinary answers take no flag: nothing waits on them.
-- Never put secrets, tokens or environment values in a reply or sheet.
+- Never put secrets, tokens or environment values in a reply or sheet: name a credential, its service and where
+  it is kept. The script refuses what looks like a value, naming the line; take the value out, never reword it to
+  slip past.
 - One reply per ask. If an ask's item no longer exists (the script says so), skip it.
 - **Archived sheets** (`sheets` marks them, `read` says so at the top) are records the writer keeps: read and
   link to them, but never reply to them, recast them or pin to them. An ask on one is rare (pica sends nothing from

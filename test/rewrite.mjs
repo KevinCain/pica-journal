@@ -41,6 +41,9 @@ const no = (args, re, what) => { const x = run(...args); ok(x.code !== 0 && re.t
 no(['rewrite', 's1', md], /--base/, 'without --base');
 no(['rewrite', '--base', '00000000000000', 's1', md], /changed since you read it/, 'from an older version');
 no(['rewrite', '--base', v, 's1', '# T\n\nprose only'], /open item/, 'an open item left out');
+const ans = structuredClone(doc); ans.content.push(P({ id: 'a1', item: 'answered' }, 'Should we retire it?'), P({ id: 'r9', voice: 'claude', of: 'a1' }, 'It is called from two files.')); write('s5', ans);
+no(['rewrite', '--base', sheetVersion(ans), 's5', '# T\n\n{#open1}'], /answered but not yet ✓ or ✗/, 'an answered item left out before the writer decided');
+ok(run('rewrite', '--base', sheetVersion(ans), 's5', '# T\n\n{#open1}\n\nWhere it is called, and what retiring it would take.\n\n{#a1}').code === 0, 'an answered item kept, with prose around it');
 no(['rewrite', '--base', v, 's1', '# T\n\n{#open1}\n{#nope}'], /not a block/, 'a block not on the sheet');
 no(['rewrite', '--base', v, 's1', '# T\n\n{#open1}\n{#r1}'], /one of your replies/, 'a reply named');
 no(['rewrite', '--base', v, 's1', '# T\n\n{#open1}\n{#open1}'], /kept twice/, 'a block named twice');

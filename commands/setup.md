@@ -15,8 +15,14 @@ Set up the pica journal for this session's folder or project. Do each step in or
      notes and Claude's replies, private to this computer);
    - commit it, so the project's history keeps the conversation.
    Change `.gitignore` only on a clear answer.
-3. Check Node: `node --version` must be 18 or later.
-4. Propose the allowlist, so Claude runs the journal command without asking each time and nothing else:
+3. Choose the memory folder: run `pica-journal memory`. It prints the folder in use and each candidate (the
+   project and the folders above it) with how many memories it holds. Claude Code keeps memory per folder a
+   session starts in, so if most of this project's sessions start in a folder above it, that folder holds its
+   memories. If a candidate other than the one in use holds more, ask the writer which folder their sessions
+   start in, recommending the one with the most memories; on a clear answer run `pica-journal memory <folder>`
+   (or `pica-journal memory --project`). The journal's memory sheets, adopt, forget and remember then use it.
+4. Check Node: `node --version` must be 18 or later.
+5. Propose the allowlist, so Claude runs the journal command without asking each time and nothing else:
 
    ```json
    { "permissions": { "allow": ["Bash(pica-journal:*)"] } }
@@ -25,9 +31,9 @@ Set up the pica journal for this session's folder or project. Do each step in or
    In a code project, offer `.claude/settings.local.json` (just this computer) or `.claude/settings.json` (shared
    with everyone who works on the project); in a writer's folder, `.claude/settings.json`. Only on a clear yes,
    merge it into that file (keep every other setting) and show the result.
-5. Say what to choose in pica (drawer → Journal → Choose folder): in a code project, the project folder (pica
+6. Say what to choose in pica (drawer → Journal → Choose folder): in a code project, the project folder (pica
    uses its `journal/` folder) or the journal folder itself; for a writer, the folder Claude runs in.
-6. Say how to start listening from now on, from anywhere in the project:
+7. Say how to start listening from now on, from anywhere in the project:
    `claude --dangerously-load-development-channels plugin:pica-journal@pica`
    (a shell alias saves typing it), and that a `.listening` file in the journal tells pica a session is waiting.
-7. If the state was `ready`, run one journal pass now (the `journal` skill).
+8. If the state was `ready`, run one journal pass now (the `journal` skill).
