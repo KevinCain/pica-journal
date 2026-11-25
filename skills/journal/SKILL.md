@@ -167,7 +167,12 @@ code, never a copy of a log.
    `pica-journal survey transcript <session> --files <the thread's files>`, never the files under ~/.claude
    yourself; the writer's words outrank a summary, which is Claude's claim, and a memory is a claim too. Reply to
    the step with the link and `--ref` for the two or three places the essay turns on.
-5. **Kept sheets,** one per step sent (below).
+5. **Kept sheets,** one per step sent (below). Before replying to the last, account for the digest: every memory
+   it lists and every document it ranks under a subject that bears on a kept sheet (pricing, pilots, go-to-market,
+   decisions, operations, security) is either carried into a sheet or an essay step, with its evidence, or named in
+   a line under the plan saying why it was left out. A principle in a memory (how the writer wants results shown,
+   what they hold the product's strength to be), a competitive analysis, and the outcome of an outreach are as much
+   the project as its code, and are the easiest to drop.
 6. **Index,** last: one page, "The project as it stands", linking the kept sheets first, then each essay, and
    listing what is open. Then `pica-journal pin <index sheet> "Imported up to <HEAD commit>"`, so the next import
    knows where it read to.
@@ -215,6 +220,8 @@ next person can act on.
   actually done (dated, with its evidence: the pricing that was built, a recipient who acted on part of an email),
   and what the team wants to learn next, as an item beside the decision it bears on. From the project's documents
   (the digest ranks them by subject) and commits; offered whenever they support it, git-only imports included.
+  Include the competitors the documents name and the advantages claimed over them, and the field evidence: what a
+  recipient of an email or a pilot actually did, against what was asked.
 - **Rules kept by hand.** Each "when you change X, change Y" or standing rule (from the digest's Change together,
   CLAUDE.md, documents) is an item on this sheet, never written to memory first. Reply to each with `--awaits`,
   saying in a sentence what you would remember. On the writer's ✓ (`agree`), run `pica-journal remember <sheet>

@@ -70,7 +70,7 @@ blame, the transcript index and the filtered sessions) is kept in the plugin's d
 else `~/.cache/pica-journal`), never in the journal. Claude Code clears sessions older than `cleanupPeriodDays`
 (30 by default), so only recent conversations can be read.
 
-Nothing that looks like a key, token or password is written to the journal: every command that writes refuses it,
+Nothing that looks like a key, token or password (a login written with its password included) is written to the journal: every command that writes refuses it,
 naming the line, and a memory file holding one is not mirrored.
 
 Claude Code keeps memory per folder a session starts in. The journal uses one, recorded at setup with

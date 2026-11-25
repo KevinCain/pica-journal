@@ -39,6 +39,8 @@ w('prisma/migrations/20260101000000_init/migration.sql', 'CREATE TABLE a (id int
 w('prisma/seed.ts', "await db.user.create({ data: { email: 'admin@example.test', role: 'ADMIN', password: hash('x') } });\n");
 w('.claude/skills/release/SKILL.md', '---\nname: release\ndescription: Push to production after the checks\n---\nSteps.\n');
 w('opencode.json', JSON.stringify({ mcp: { pay: { headers: { SOME_API_KEY: 'ab12CD34ef56GH78ij90kl' } } } }, null, 1));
+w('docs/setup.md', '# Setup\n\nSeeded with an admin user (admin@example.com / Fixture42x).\nThe repo is git@github.com:org/repo-2.git.\n');
+w('scripts/dev-demo.sh', '#!/bin/sh\n# Demo login on this branch: demo@example.test / quiet-river-pass.\nexec next dev\n');
 w('docs/pilot-guide.md', '# Pilot program guide\n\n## Pricing for pilots\n\ntext\n');
 w('docs/audit-answer-key.md', '# The answer key\n');
 w('lib/x.ts', lines(5, 'x')); w('web/y.ts', lines(5, 'y'));
@@ -73,6 +75,7 @@ check('migrations, and one edited after it was added', /prisma\/migrations: 1 mi
 check('services from packages, env and hosts', /- Stripe: package stripe; env STRIPE_SECRET_KEY/.test(sec('Services')) && /api\.rentcast\.io/.test(sec('Services')));
 check('tooling: the skill and the MCP config', /skill release: Push to production/.test(sec('Tooling')) && /opencode\.json: keys mcp/.test(sec('Tooling')));
 check('a test login by role, never its password', /prisma\/seed\.ts: 1 user by email; roles ADMIN; sets a password \(not shown\)/.test(out) && !/admin@example/.test(out));
+check('a login and its password, in prose and in a script', /- docs\/setup\.md: line 3, a login and its password/.test(out) && /- scripts\/dev-demo\.sh: line 2, a login and its password/.test(out) && !/Fixture42x|quiet-river/.test(out));
 check('a committed secret, by file and name, at the top', /## Committed secrets[\s\S]*- opencode\.json: line \d+, a key in a config/.test(out) && out.indexOf('## Committed secrets') < out.indexOf('## Threads') && !/ab12CD34/.test(out));
 check('a pair that changes together', /lib\/x\.ts and web\/y\.ts: 6 commits together \(100%\)/.test(out));
 check('a security fix', /### Security[\s\S]*Scope queries by tenantId; require webhook secret/.test(out));

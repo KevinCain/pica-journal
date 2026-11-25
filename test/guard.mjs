@@ -22,6 +22,7 @@ const MUST_REFUSE = [
   'Password: Hunter2xyz!', 'whsec_abcdefghijklmnop1234', 'sk_live_abc123def456ghi', 'pk_test_abc123def456ghi',
   're_AbCdEf123456GhIjKl7890x', 'sk-ant-api03-abcdefghijklmnopqrstuv', 'STRIPE_SECRET_KEY=sk_abc123def456ghi789jkl',
   'postgres://user:hunter2@db.example.com/x', 'Authorization: Bearer abcdefghijklmnop1234567',
+  'Seeded with admin user (admin@example.com / Fixture42x)', '# Demo login: demo@example.test / quiet-river-pass.',
 ];
 const MUST_PASS = [
   'commit 0319456f8a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d', 'uuid 3f2b8c1e-4d5a-4b6c-9e7f-1a2b3c4d5e6f',
@@ -29,6 +30,8 @@ const MUST_PASS = [
   'apiKey: process.env.CREEM_API_KEY', 'The API key: kept in the team vault', 're_render_component_now',
   'token: "${{ secrets.NEON_API_KEY }}"', 'the password reset flow', 'SOME_API_KEY', '"key": "row-1234-abcd-5678-efgh"',
   'API key: see the 1Password entry “Creem live”',
+  'git@github.com:org/repo-2.git', 'git@github.com:Org_Name/repo.git', 'admin@example.com / admin', 'see a@b.co / docs/setup-2.md',
+  'Mail kevin@example.org: replied twice',
 ];
 for (const t of MUST_REFUSE) ok(secretIn(t), `refused: ${t}`);
 for (const t of MUST_PASS) ok(!secretIn(t), `passes: ${t} (${secretIn(t)})`);
